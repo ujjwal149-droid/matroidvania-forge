@@ -1,0 +1,73 @@
+[gd_scene load_steps=10 format=3 uid="uid://dkhyohd1onmoe"]
+
+[ext_resource type="Script" uid="uid://k31jkkbyxopi" path="res://player/scripts/player.gd" id="1_oul6g"]
+[ext_resource type="Script" uid="uid://dvo3hmolmo2al" path="res://player/states/idle.gd" id="2_g1dw6"]
+[ext_resource type="Script" uid="uid://ilahpiogykis" path="res://player/states/run.gd" id="3_yw30f"]
+[ext_resource type="Script" uid="uid://c6jl0j7vmqu6a" path="res://player/states/jump.gd" id="4_yw30f"]
+[ext_resource type="Script" uid="uid://d1sljwcp2yvu8" path="res://player/states/fall.gd" id="5_qjkh3"]
+[ext_resource type="Script" uid="uid://bpn0245mlgko" path="res://player/states/crouch.gd" id="6_g6k8r"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_kqu6x"]
+size = Vector2(18, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oul6g"]
+size = Vector2(16, 46)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g6k8r"]
+size = Vector2(16, 30)
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_oul6g")
+
+[node name="States" type="Node" parent="."]
+
+[node name="Idle" type="Node" parent="States"]
+unique_name_in_owner = true
+script = ExtResource("2_g1dw6")
+
+[node name="Run" type="Node" parent="States"]
+unique_name_in_owner = true
+script = ExtResource("3_yw30f")
+
+[node name="Jump" type="Node" parent="States"]
+unique_name_in_owner = true
+script = ExtResource("4_yw30f")
+
+[node name="Fall" type="Node" parent="States"]
+unique_name_in_owner = true
+script = ExtResource("5_qjkh3")
+
+[node name="Crouch" type="Node" parent="States"]
+unique_name_in_owner = true
+script = ExtResource("6_g6k8r")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("PlaceholderTexture2D_kqu6x")
+offset = Vector2(0, -24)
+
+[node name="CollisionStand" type="CollisionShape2D" parent="."]
+position = Vector2(0, -23)
+shape = SubResource("RectangleShape2D_oul6g")
+debug_color = Color(4.042983e-06, 0.5881858, 0.68830764, 0.41960785)
+
+[node name="CollisionCrouch" type="CollisionShape2D" parent="."]
+position = Vector2(0, -15)
+shape = SubResource("RectangleShape2D_g6k8r")
+disabled = true
+debug_color = Color(4.042983e-06, 0.5881858, 0.68830764, 0.41960785)
+
+[node name="StateLabel" type="Label" parent="."]
+offset_left = -18.0
+offset_top = -80.0
+offset_right = 22.0
+offset_bottom = -57.0
+theme_override_font_sizes/font_size = 12
+text = "label"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OneWayPlatformRaycast" type="RayCast2D" parent="."]
+target_position = Vector2(0, 4)
+collision_mask = 2
