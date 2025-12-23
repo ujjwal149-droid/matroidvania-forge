@@ -14,6 +14,8 @@ func init() -> void:
 # what happens when we enter the state
 func enter() -> void:
 	# Play Animations
+	player.animation_player.play("jump")
+	player.animation_player.pause()
 	player.gravity_multiplier = fall_gravity_multiplier
 	if player.previous_state == jump:
 		cayote_timer = 0
@@ -24,6 +26,7 @@ func enter() -> void:
 # what happens when we exit the state
 func exit() -> void:
 	player.gravity_multiplier = 1.0
+	buffer_timer = 0
 	pass
 	
 # what happens an input is pressed or released
@@ -40,14 +43,22 @@ func handle_input( _event : InputEvent ) -> PlayerState:
 func process(_delta: float) -> PlayerState:
 	cayote_timer -= _delta
 	buffer_timer -= _delta
+	set_jump_frame()
 	return next_state
 	
 # what happens each physics_process tick in this state?
 func physics_process(_delta: float) -> PlayerState:
 	if player.is_on_floor():
 		player.add_debug_indicator(Color.RED)
+		#if buffer_timer > 0 and Input.is_action_pressed("jump"): fix1 -> dont let jump high ifjump was released before going into jump state
 		if buffer_timer > 0:
 			return jump
 		return idle
 	player.velocity.x = player.direction.x * player.move_speed
 	return next_state
+
+func set_jump_frame() -> void:
+	# important
+	var frame : float = remap(player.velocity.y, 0.0, player.max_fall_speed, 0.5, 1.0)
+	player.animation_player.seek( frame, true)
+	pass

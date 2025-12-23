@@ -25,6 +25,7 @@ var previous_state : PlayerState :
 @export var move_speed : float = 150.0
 @export var jump_speed : float = 450.0
 @export var crouch_retardation_rate : float = 10
+@export var max_fall_speed : float = 600
 #endregion
 
 #region /// Standard Variables
@@ -53,6 +54,7 @@ func _unhandled_input(event: InputEvent) -> void:
 # _delta (_) means variable may not be intended to use
 func _physics_process(_delta: float) -> void:
 	velocity.y += gravity * _delta * gravity_multiplier
+	velocity.y = clampf(velocity.y, -1000, max_fall_speed)
 	move_and_slide()
 	change_state( current_state.physics_process( _delta) )
 	pass
@@ -63,7 +65,7 @@ func initialize_states() -> void:
 	# gather all states
 	for c in $States.get_children():
 		if c is PlayerState:
-			states.append( c )
+			states.append(c)
 			c.player = self
 		pass
 		
