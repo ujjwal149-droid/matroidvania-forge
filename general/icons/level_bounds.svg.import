@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://df0xihdqmhroo"
-path="res://.godot/imported/player_spawn.svg-0c4bbb16906dfb18e2dc192c95bce6dc.ctex"
+uid="uid://biejv0f7hig31"
+path="res://.godot/imported/level_bounds.svg-e93394475976c11236f855caa5ed2084.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://levels/player_spawn.svg"
-dest_files=["res://.godot/imported/player_spawn.svg-0c4bbb16906dfb18e2dc192c95bce6dc.ctex"]
+source_file="res://general/icons/level_bounds.svg"
+dest_files=["res://.godot/imported/level_bounds.svg-e93394475976c11236f855caa5ed2084.ctex"]
 
 [params]
 
